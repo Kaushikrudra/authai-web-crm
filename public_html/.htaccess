@@ -1,0 +1,17 @@
+# AUTH AI — Hostinger SPA routing config
+# Place this in your public_html root on Hostinger
+
+Options -MultiViews
+RewriteEngine On
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Serve static assets directly
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Route everything else to index.html (React SPA)
+RewriteRule ^ index.html [L]
